@@ -9,8 +9,13 @@ function cc-down --description "Desliga o Remote Control dos projetos"
     for w in (tmux list-windows -t cc -F '#{window_index}')
         tmux send-keys -t cc:$w C-c
     end
+    # A conversa retomada (janela -ultima) so fecha com o segundo Ctrl-C
+    sleep 1
+    for w in (tmux list-windows -t cc -F '#{window_name}' | string match '*-ultima')
+        tmux send-keys -t cc:$w C-c
+    end
     for i in (seq 30)
-        pgrep -f "claude remote-control" >/dev/null; or break
+        pgrep -f "claude (remote-control|--continue)" >/dev/null; or break
         sleep 1
     end
     tmux kill-session -t cc 2>/dev/null
