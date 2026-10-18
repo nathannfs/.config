@@ -3,3 +3,5 @@
 github-copilot/
 cloudflare/
 zed/settings.json
+fish/conf.d/secrets.fish
+fish/fish_variables
